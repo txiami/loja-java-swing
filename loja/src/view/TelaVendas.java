@@ -1,6 +1,11 @@
 package view;
 
+import controller.ClienteController;
+import controller.PedidoController;
+import controller.ProdutoController;
+import model.Cliente;
 import model.Item;
+import model.Pedido;
 import model.Produto;
 
 import javax.swing.*;

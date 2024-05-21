@@ -65,6 +65,11 @@ public class ItemDAO implements DAO<Item> {
         return null;
     }
 
+    @Override
+    public List<Item> buscarTodos() {
+        return List.of();
+    }
+
     public List<Item> buscarPorPedidoId(int pedidoId) {
         List<Item> itens = new ArrayList<>();
 

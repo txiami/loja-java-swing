@@ -25,4 +25,8 @@ public class Pedido {
     public int getClienteId() {
         return clienteId;
     }
+
+    public void setId(int anInt) {
+        id = anInt;
+    }
 }

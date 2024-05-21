@@ -73,7 +73,7 @@ public class TelaListagemClientes extends JFrame {
         return dados;
     }
 
-    private void atualizarTabelaClientes() {
+    void atualizarTabelaClientes() {
         tblClientes.setModel(new DefaultTableModel(obterDadosClientes(), new String[]{"ID", "Nome", "Data de Cadastro"}));
     }
 }
