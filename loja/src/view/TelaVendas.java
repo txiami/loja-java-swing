@@ -43,7 +43,7 @@ public class TelaVendas extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
 
         // Criar painel superior para seleção de cliente, produto e quantidade
-        JPanel panelSuperior = new JPanel(new GridLayout(1, 3, 10, 10));
+        JPanel panelSuperior = new JPanel(new GridLayout(1, 4, 10, 10));
         JLabel lblCliente = new JLabel("Cliente:");
         cbClientes = new JComboBox<>(obterClientes());
         JLabel lblProduto = new JLabel("Produto:");
@@ -51,6 +51,7 @@ public class TelaVendas extends JFrame {
         JLabel lblQuantidade = new JLabel("Quantidade:");
         txtQuantidade = new JTextField();
         JButton btnAdicionar = new JButton("Adicionar");
+        JButton btnHistoricoVendas = new JButton("Histórico de Vendas");
 
         btnAdicionar.addActionListener(new ActionListener() {
             @Override
@@ -64,6 +65,14 @@ public class TelaVendas extends JFrame {
             }
         });
 
+        btnHistoricoVendas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TelaHistoricoVendas telaHistoricoVendas = new TelaHistoricoVendas(clienteController, produtoController, pedidoController);
+                telaHistoricoVendas.setVisible(true);
+            }
+        });
+
         panelSuperior.add(lblCliente);
         panelSuperior.add(cbClientes);
         panelSuperior.add(lblProduto);
@@ -71,6 +80,7 @@ public class TelaVendas extends JFrame {
         panelSuperior.add(lblQuantidade);
         panelSuperior.add(txtQuantidade);
         panelSuperior.add(btnAdicionar);
+        panelSuperior.add(btnHistoricoVendas);
         panel.add(panelSuperior, BorderLayout.NORTH);
 
         // Criar tabela para listar itens do pedido
@@ -97,7 +107,7 @@ public class TelaVendas extends JFrame {
         panelInferior.add(btnFinalizarVenda);
         panel.add(panelInferior, BorderLayout.SOUTH);
 
-        add(panel);
+        getContentPane().add(panel);
     }
 
     private Cliente[] obterClientes() {
@@ -127,5 +137,6 @@ public class TelaVendas extends JFrame {
 
     private void atualizarTabelaPedido() {
         tblPedido.setModel(new DefaultTableModel(obterDadosPedido(), new String[]{"Produto", "Preço", "Quantidade", "Total"}));
+        tblPedido.repaint();
     }
 }
