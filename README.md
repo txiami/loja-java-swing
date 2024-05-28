@@ -6,7 +6,7 @@ Este é um projeto Java que demonstra a integração entre uma aplicação Java 
 Antes de começar, certifique-se de ter os seguintes requisitos instalados:
 
 Java Development Kit (JDK) - Versão 11 ou superior
-IntelliJ IDEA ou Eclipse IDE - Você pode escolher entre essas IDEs para executar o projeto.
+IntelliJ IDEA ou Eclipse IDE - Você pode escolher entre essas IDEs para executar o projeto e Mysql.
 Configuração do Projeto
 Clone o repositório para a sua máquina local:
 
@@ -16,7 +16,7 @@ git clone https://github.com/txiami/loja-java-swing.git
 Abra o projeto no IntelliJ IDEA ou no Eclipse.
 
 Configuração do Banco de Dados
-Antes de executar o projeto, é necessário configurar o banco de dados. Você pode usar o MySQL, PostgreSQL ou outro banco de dados compatível com JDBC.
+Antes de executar o projeto, é necessário configurar o banco de dados MySQL para podermos usar o JDBC.
 ```
 CREATE DATABASE loja;
 
