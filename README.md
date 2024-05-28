@@ -64,13 +64,13 @@ Se você não estiver usando Maven ou Gradle para gerenciar as dependências do 
 
 ## No IntelliJ IDEA:
 
-Baixe o driver JDBC para o seu banco de dados.
+Baixe o driver JDBC do repositorio e extraia.
 No IntelliJ IDEA, clique com o botão direito do mouse no projeto e selecione Open Module Settings.
 Na janela do projeto, vá para Libraries.
 Clique no botão + e adicione o arquivo JAR do driver JDBC baixado.
 ## No Eclipse:
 
-Baixe o driver JDBC para o seu banco de dados.
+Baixe o driver JDBC do repositorio e extraia.
 No Eclipse, clique com o botão direito do mouse no projeto e selecione Build Path > Configure Build Path.
 Na guia Libraries, clique em Add External JARs e adicione o arquivo JAR do driver JDBC baixado.
 Executando o Projeto no IntelliJ IDEA
