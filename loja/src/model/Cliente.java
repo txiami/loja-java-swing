@@ -26,4 +26,9 @@ public class Cliente {
     public LocalDateTime getDtCadastroCliente() {
         return dtCadastroCliente;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

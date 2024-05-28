@@ -27,4 +27,10 @@ public class Produto {
     public BigDecimal getPreco() {
         return preco;
     }
+
+    @Override
+    public String toString() {
+        return descricao;
+    }
+
 }

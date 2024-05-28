@@ -37,6 +37,9 @@ public class TelaListagemProdutos extends JFrame {
         JButton btnNovo = new JButton("Novo");
         JButton btnAtualizar = new JButton("Atualizar");
         JButton btnExcluir = new JButton("Excluir");
+        JLabel lblPesquisar = new JLabel("Pesquisar por ID:");
+        JTextField txtPesquisar = new JTextField(10);
+        JButton btnPesquisar = new JButton("Pesquisar");
 
         btnNovo.addActionListener(new ActionListener() {
             @Override
@@ -56,19 +59,33 @@ public class TelaListagemProdutos extends JFrame {
         btnExcluir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int row = tblProdutos.getSelectedRow();
-                if (row != -1) {
-                    int id = (int) tblProdutos.getValueAt(row, 0);
-                    int confirm = JOptionPane.showConfirmDialog(TelaListagemProdutos.this,
-                            "Deseja realmente excluir o produto com ID " + id + "?", "Confirmar exclusão",
-                            JOptionPane.YES_NO_OPTION);
-                    if (confirm == JOptionPane.YES_OPTION) {
-                        produtoController.removerProduto(id);
-                        atualizarTabelaProdutos();
-                    }
+                int selectedRow = tblProdutos.getSelectedRow();
+                if (selectedRow >= 0) {
+                    int produtoId = (int) tblProdutos.getValueAt(selectedRow, 0);
+                    produtoController.removerProduto(produtoId);
+                    atualizarTabelaProdutos();
                 } else {
-                    JOptionPane.showMessageDialog(TelaListagemProdutos.this, "Selecione um produto na tabela.", "Erro",
-                            JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(TelaListagemProdutos.this, "Selecione um produto para excluir.");
+                }
+            }
+        });
+
+        btnPesquisar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    int produtoId = Integer.parseInt(txtPesquisar.getText());
+                    Produto produto = produtoController.buscarProdutoPorId(produtoId);
+                    if (produto != null) {
+                        Object[][] dados = {
+                                {produto.getId(), produto.getDescricao(), produto.getPreco()}
+                        };
+                        tblProdutos.setModel(new DefaultTableModel(dados, new String[]{"ID", "Descrição", "Preço"}));
+                    } else {
+                        JOptionPane.showMessageDialog(TelaListagemProdutos.this, "Produto não encontrado.");
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(TelaListagemProdutos.this, "ID inválido.");
                 }
             }
         });
@@ -76,12 +93,13 @@ public class TelaListagemProdutos extends JFrame {
         panelBotoes.add(btnNovo);
         panelBotoes.add(btnAtualizar);
         panelBotoes.add(btnExcluir);
+        panelBotoes.add(lblPesquisar);
+        panelBotoes.add(txtPesquisar);
+        panelBotoes.add(btnPesquisar);
         panel.add(panelBotoes, BorderLayout.SOUTH);
 
         add(panel);
     }
-
-
 
     private Object[][] obterDadosProdutos() {
         List<Produto> produtos = produtoController.listarTodosProdutos();
@@ -101,3 +119,4 @@ public class TelaListagemProdutos extends JFrame {
         tblProdutos.setModel(new DefaultTableModel(obterDadosProdutos(), new String[]{"ID", "Descrição", "Preço"}));
     }
 }
+

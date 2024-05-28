@@ -39,10 +39,22 @@ public class ClienteDAO implements DAO<Cliente> {
         }
     }
 
+
     @Override
     public void remover(int id) {
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM Cliente WHERE Id = ?");
+            // Excluir itens relacionados aos pedidos do cliente
+            PreparedStatement statement = connection.prepareStatement("DELETE i FROM Item i JOIN Pedido p ON i.PedidoId = p.Id WHERE p.ClienteId = ?");
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
+            // Excluir pedidos do cliente
+            statement = connection.prepareStatement("DELETE FROM Pedido WHERE ClienteId = ?");
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
+            // Excluir o cliente
+            statement = connection.prepareStatement("DELETE FROM Cliente WHERE Id = ?");
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {

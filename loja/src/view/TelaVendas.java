@@ -56,23 +56,11 @@ public class TelaVendas extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Cliente cliente = (Cliente) cbClientes.getSelectedItem();
-                String produtoIdStr = JOptionPane.showInputDialog(TelaVendas.this, "Digite o ID do produto:", "Selecionar Produto", JOptionPane.QUESTION_MESSAGE);
-                if (produtoIdStr != null && !produtoIdStr.isEmpty()) {
-                    try {
-                        int produtoId = Integer.parseInt(produtoIdStr);
-                        Produto produto = produtoController.buscarProdutoPorId(produtoId);
-                        if (produto != null) {
-                            int quantidade = Integer.parseInt(txtQuantidade.getText());
-                            Item item = new Item(0, 0, produto.getId(), produto.getPreco(), quantidade);
-                            itensVenda.add(item);
-                            atualizarTabelaPedido();
-                        } else {
-                            JOptionPane.showMessageDialog(TelaVendas.this, "Produto não encontrado.", "Erro", JOptionPane.ERROR_MESSAGE);
-                        }
-                    } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(TelaVendas.this, "ID inválido.", "Erro", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
+                Produto produto = (Produto) cbProdutos.getSelectedItem();
+                int quantidade = Integer.parseInt(txtQuantidade.getText());
+                Item item = new Item(0, 0, produto.getId(), produto.getPreco(), quantidade);
+                itensVenda.add(item);
+                atualizarTabelaPedido();
             }
         });
 
