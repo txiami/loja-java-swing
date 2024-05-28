@@ -36,6 +36,7 @@ public class TelaListagemProdutos extends JFrame {
         JPanel panelBotoes = new JPanel(new FlowLayout());
         JButton btnNovo = new JButton("Novo");
         JButton btnAtualizar = new JButton("Atualizar");
+        JButton btnExcluir = new JButton("Excluir");
 
         btnNovo.addActionListener(new ActionListener() {
             @Override
@@ -52,12 +53,35 @@ public class TelaListagemProdutos extends JFrame {
             }
         });
 
+        btnExcluir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int row = tblProdutos.getSelectedRow();
+                if (row != -1) {
+                    int id = (int) tblProdutos.getValueAt(row, 0);
+                    int confirm = JOptionPane.showConfirmDialog(TelaListagemProdutos.this,
+                            "Deseja realmente excluir o produto com ID " + id + "?", "Confirmar exclusão",
+                            JOptionPane.YES_NO_OPTION);
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        produtoController.removerProduto(id);
+                        atualizarTabelaProdutos();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(TelaListagemProdutos.this, "Selecione um produto na tabela.", "Erro",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
         panelBotoes.add(btnNovo);
         panelBotoes.add(btnAtualizar);
+        panelBotoes.add(btnExcluir);
         panel.add(panelBotoes, BorderLayout.SOUTH);
 
         add(panel);
     }
+
+
 
     private Object[][] obterDadosProdutos() {
         List<Produto> produtos = produtoController.listarTodosProdutos();
@@ -73,7 +97,7 @@ public class TelaListagemProdutos extends JFrame {
         return dados;
     }
 
-    private void atualizarTabelaProdutos() {
+    void atualizarTabelaProdutos() {
         tblProdutos.setModel(new DefaultTableModel(obterDadosProdutos(), new String[]{"ID", "Descrição", "Preço"}));
     }
 }

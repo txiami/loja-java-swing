@@ -4,6 +4,7 @@ import DAO.ClienteDAO;
 import DAO.ItemDAO;
 import DAO.PedidoDAO;
 import DAO.ProdutoDAO;
+import DAO.DatabaseConnection;
 import controller.ClienteController;
 import controller.PedidoController;
 import controller.ProdutoController;
@@ -71,6 +72,7 @@ public class TelaPrincipal extends JFrame {
             @Override
             public void run() {
                 try {
+                    DatabaseConnection databaseConnection;
                     Connection connection = DatabaseConnection.getConnection();
                     ClienteDAO clienteDAO = new ClienteDAO(connection);
                     ProdutoDAO produtoDAO = new ProdutoDAO(connection);

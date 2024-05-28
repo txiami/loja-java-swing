@@ -21,7 +21,7 @@ public class ProdutoController {
     }
 
     public void removerProduto(int id) {
-        produtoDAO.remover(id);
+        produtoDAO.removerProdutoComItens(id); // Chama o novo método
     }
 
     public Produto buscarProdutoPorId(int id) {

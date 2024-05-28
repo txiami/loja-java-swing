@@ -36,6 +36,7 @@ public class TelaListagemClientes extends JFrame {
         JPanel panelBotoes = new JPanel(new FlowLayout());
         JButton btnNovo = new JButton("Novo");
         JButton btnAtualizar = new JButton("Atualizar");
+        JButton btnExcluir = new JButton("Excluir");
 
         btnNovo.addActionListener(new ActionListener() {
             @Override
@@ -52,8 +53,29 @@ public class TelaListagemClientes extends JFrame {
             }
         });
 
+        btnExcluir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int row = tblClientes.getSelectedRow();
+                if (row != -1) {
+                    int id = (int) tblClientes.getValueAt(row, 0);
+                    int confirm = JOptionPane.showConfirmDialog(TelaListagemClientes.this,
+                            "Deseja realmente excluir o cliente com ID " + id + "?", "Confirmar exclusão",
+                            JOptionPane.YES_NO_OPTION);
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        clienteController.removerCliente(id);
+                        atualizarTabelaClientes();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(TelaListagemClientes.this, "Selecione um cliente na tabela.", "Erro",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
         panelBotoes.add(btnNovo);
         panelBotoes.add(btnAtualizar);
+        panelBotoes.add(btnExcluir);
         panel.add(panelBotoes, BorderLayout.SOUTH);
 
         add(panel);
@@ -62,14 +84,12 @@ public class TelaListagemClientes extends JFrame {
     private Object[][] obterDadosClientes() {
         List<Cliente> clientes = clienteController.listarTodosClientes();
         Object[][] dados = new Object[clientes.size()][3];
-
         for (int i = 0; i < clientes.size(); i++) {
             Cliente cliente = clientes.get(i);
             dados[i][0] = cliente.getId();
             dados[i][1] = cliente.getNome();
             dados[i][2] = cliente.getDtCadastroCliente();
         }
-
         return dados;
     }
 
